@@ -1,6 +1,6 @@
 class BlogsController < ApplicationController
 
-  before_action :set_blog, only: [:show, :edit, :update, :destroy] # destroyアクションを追加
+  before_action :set_blog, only: [:show, :edit, :update, :destroy] 
 
   def destroy
     @blog.destroy
@@ -33,7 +33,6 @@ class BlogsController < ApplicationController
     end
   end
 
-
   def show
   end
 
@@ -48,15 +47,12 @@ class BlogsController < ApplicationController
     end
   end
 
-
-
   private
 
   def blog_params
     params.require(:blog).permit(:content)
   end
 
-  # idをキーとして値を取得するメソッドを追加
   def set_blog
     @blog = Blog.find(params[:id])
   end

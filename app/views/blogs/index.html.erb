@@ -1,22 +1,29 @@
-<h1>ブログ一覧</h1>
+<header>
+つぶやきヘッダー
+</header>
+<div class="main">
+<h1>つぶやき一覧</h1>
 
 <p><%= notice %></p>
 
 <table>
   <tr>
-    <th>タイトル</th>
     <th>内容</th>
   </tr>
 
 <% @blogs.each do |blog| %>
   <tr>
-    <td><%= blog.content %></td>
-    <td><%= link_to '詳細を確認する', blog_path(blog.id) %></td>
-    <td><%= link_to "ブログを編集する", edit_blog_path(blog.id), data: { confirm: '本当に編集していいですか？' } %>
+    <td class="content"><%= blog.content %></td>
+    <td><%= link_to 'つぶやき詳細', blog_path(blog.id) %></td>
+    <td><%= link_to "つぶやきを編集", edit_blog_path(blog.id), data: { confirm: '本当に編集していいですか？' } %>
 </td>
-    <td><%= link_to 'ブログを削除する', blog_path(blog.id), method: :delete ,data: { confirm: '本当に削除していいですか？' } %></td>
+    <td><%= link_to '削除', blog_path(blog.id), method: :delete ,data: { confirm: '本当に削除していいですか？' } %></td>
   </tr>
 <% end %>
 </table>
 
-<%= link_to '新しくブログを投稿する', new_blog_path %>
+<p class="text"><%= link_to '新しくつぶやく', new_blog_path %></p>
+</div>
+<footer>
+フッター
+</footer>
