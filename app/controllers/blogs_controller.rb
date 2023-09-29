@@ -1,8 +1,19 @@
 class BlogsController < ApplicationController
-  before_action :set_blog, only: [:show, :edit, :update]
+
+  before_action :set_blog, only: [:show, :edit, :update, :destroy] # destroyアクションを追加
+
+  def destroy
+    @blog.destroy
+    redirect_to blogs_path, notice:"ブログを削除しました！"
+  end
 
   def index
     @blogs = Blog.all
+  end
+
+  def confirm
+    @blog = Blog.new(blog_params)
+    render :new if @blog.invalid?
   end
 
   def new
@@ -11,16 +22,23 @@ class BlogsController < ApplicationController
 
   def create
     @blog = Blog.new(blog_params)
-    if @blog.save
-      # 一覧画面へ遷移して"ブログを作成しました！"とメッセージを表示します。
-      redirect_to blogs_path, notice: "ブログを作成しました！"
-    else
-      # 入力フォームを再描画します。
+    if params[:back]
       render :new
+    else
+      if @blog.save
+        redirect_to blogs_path, notice: "ブログを作成しました！"
+      else
+        render :new
+      end
     end
   end
 
-  
+
+  def show
+  end
+
+  def edit
+  end
 
   def update
     if @blog.update(blog_params)
@@ -30,12 +48,15 @@ class BlogsController < ApplicationController
     end
   end
 
+
+
   private
 
   def blog_params
-    params.require(:blog).permit(:title, :content)
+    params.require(:blog).permit(:content)
   end
 
+  # idをキーとして値を取得するメソッドを追加
   def set_blog
     @blog = Blog.find(params[:id])
   end
